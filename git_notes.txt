@@ -1,0 +1,8 @@
+git init // Initializes project as a git repository
+git remote add origin yourShhkey // connects this directory to the git repository on git hub
+git add whatyouwanttopush // add anything you put in that block
+git add . // adds all working changes, rather than a specific thing
+git commit -m "your message" // your message must be in quotes; milestone that you are read to send to git
+git status // check that modifications occur, should be doing this throughout
+git branch // will show the branch you are currently on and all other branches present
+git push origin branchname // push branchname with all new work to github
