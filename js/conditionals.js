@@ -21,10 +21,12 @@
  * Test your function by passing various string literals to it and
  * console.logging the function's return value
  */
+// to define a variable and call it a function in one line
+//var var_name = function()
 
-function analyzeColor (colorName) {
-
-}
+// function analyzeColor (colorName) {
+//
+// }
 //     { if (colorName === 'blue') {
 //         console.log('Blue is the color of the sky!')
 //     } else if (colorName === 'pink') {
@@ -51,25 +53,41 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  * TODO:
  * Comment out the code above, and refactor your function to use a switch-case statement
  */
-switch(randomColor) {
-    case "blue":
-        console.log('blue is the color of the sky');
-        break;
-    case "cheese":
-        console.log('orange is the color of oranges');
-        break;
-    case "green":
-        console.log('green is the color of grass');
-        break;
-    default:
-        console.log('I do not know about that color');
-}
+// switch(randomColor) {
+//     case "blue":
+//         console.log('blue is the color of the sky');
+//         break;
+//     case "orange":
+//         console.log('orange is the color of oranges');
+//         break;
+//     case "green":
+//         console.log('green is the color of grass');
+//         break;
+//     default:
+//         console.log('I do not know about that color');
+// }
 /**
  * TODO:
  * Prompt the user for a color when the page loads, and pass the input from the
  * user to your `analyzeColor` function. Alert the return value from your
  * function to show it to the user.
  */
+// var userColor = prompt('What is your favorite color?');
+// function anaylzeColor(color){
+// switch(userColor) {
+//     case "blue":
+//         alert('blue is the color of the sky');
+//         break;
+//     case "orange":
+//         alert('orange is the color of oranges');
+//         break;
+//     case "green":
+//         alert('green is the color of grass');
+//         break;
+//     default:
+//             alert(userColor + ' I do not know about that color');
+// }}
+// anaylzeColor(userColor);
 
 /* ########################################################################## */
 
@@ -93,6 +111,27 @@ switch(randomColor) {
  * return value.
  */
 
+
+// ******** I am not getting the correct calculation.!!!!!
+// function discountAmount(luckyNumber, preDiscountTotal){
+//     switch (discountAmount) {
+//         case luckyNumber = 0:
+//             return preDiscountTotal;
+//         case 1:
+//             return preDiscountTotal - (.1 * preDiscountTotal);
+//         case 2:
+//             return preDiscountTotal - (0.25 * preDiscountTotal);
+//         case 3:
+//             return preDiscountTotal - (0.35 * preDiscountTotal);
+//         case 4:
+//             return preDiscountTotal - (0.45 * preDiscountTotal);
+//         case 5:
+//             return 0;
+//         default:
+//             return preDiscountTotal;
+//     }
+// }
+// console.log(discountAmount(2, 1));
 /**
  * TODO:
  * Uncomment the line below to generate a random number between 0 and 5.
@@ -122,3 +161,5 @@ switch(randomColor) {
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
+
+// confirm('Would you like to input a number?');
