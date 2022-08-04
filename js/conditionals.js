@@ -112,10 +112,10 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  */
 
 
-// ******** I am not getting the correct calculation.!!!!!
+
 // function discountAmount(luckyNumber, preDiscountTotal){
-//     switch (discountAmount) {
-//         case luckyNumber = 0:
+//     switch (luckyNumber) {
+//         case 0:
 //             return preDiscountTotal;
 //         case 1:
 //             return preDiscountTotal - (.1 * preDiscountTotal);
@@ -131,7 +131,7 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
 //             return preDiscountTotal;
 //     }
 // }
-// console.log(discountAmount(2, 1));
+// console.log(discountAmount(2, 10).toFixed(2));
 /**
  * TODO:
  * Uncomment the line below to generate a random number between 0 and 5.
@@ -142,7 +142,28 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  */
 // Generate a random number between 0 and 6
 // var luckyNumber = Math.floor(Math.random() * 6);
+// var preDiscountTotal = parseInt(prompt('What is your total?'));
 
+// function calculateTotal(luckyNumber, preDiscountTotal){
+//     switch (luckyNumber) {
+//         case 0:
+//             return preDiscountTotal;
+//         case 1:
+//             return preDiscountTotal - (.1 * preDiscountTotal);
+//         case 2:
+//             return preDiscountTotal - (0.25 * preDiscountTotal);
+//         case 3:
+//             return preDiscountTotal - (0.35 * preDiscountTotal);
+//         case 4:
+//             return preDiscountTotal - (0.45 * preDiscountTotal);
+//         case 5:
+//             return 0;
+//         default:
+//             return preDiscountTotal;
+//     }}
+
+// alert('Your lucky number is ' + luckyNumber + ' !')
+// alert('Your was total was ' + preDiscountTotal + ' , with your lucky discount, your total is now ' + calculateTotal(luckyNumber, preDiscountTotal) + ' !')
 /**
  * TODO:
  * Write some JavaScript that uses a `confirm` dialog to ask the user if they
@@ -162,4 +183,9 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  * HINT: The way we prompt for a value could be improved
  */
 
-// confirm('Would you like to input a number?');
+var wouldYou = confirm('Would you like to input a number?');
+    if (wouldYou) {
+        var userNum = parseInt(prompt('Enter a number!'));
+    }
+
+
