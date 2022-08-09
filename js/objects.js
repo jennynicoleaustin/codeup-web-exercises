@@ -144,9 +144,9 @@ browser log name of customer, discount, amount after discount
      *      ...
      */
 
-    // books.forEach(function (book, index){
-    //     console.log(`Book # ${index + 1} ${book.title} ${book.author.firstName} ${book.author.lastName}`)
-    // })
+    books.forEach(function (book, index){
+        console.log(`Book # ${index + 1} ${book.title} ${book.author.firstName} ${book.author.lastName}`)
+    })
     /**
      * Bonus:
      * - Create a function named `createBook` that accepts a title and author
@@ -170,5 +170,9 @@ browser log name of customer, discount, amount after discount
 
     createBook('cats', 'doctor');
     console.log(books);
+
+    function showBookInfo(book) {
+        console.log(`Book # ${index + 1} ${book.title} ${book.author.firstName} ${book.author.lastName}`)
+    }
 
 })();
