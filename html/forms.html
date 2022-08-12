@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register With Us</title>
+</head>
+<body>
+<header>
+    <h1>Register With Us</h1>
+</header>
+<form method="POST" action="https://request-inspector.glitch.me/">
+    <p>
+    <label for="username"><strong>Username</strong></label>
+    <input id="username" name="username" type="text">
+    </p>
+    <p>
+    <label for="password"><strong>Password</strong></label>
+    <input id="password" name="password" type="password">
+    </p>
+    <span>
+    <label for="bio"><strong>Tell us about yourself!</strong></label>
+    <textarea id="bio" name="bio"></textarea>
+    </span>
+
+    <p><h4>How did you hear about us?</h4></p>
+
+    <input type="radio" id="Billboard" name="hear_about" value="Billboard">
+    <label for="billboard">Billboard</label><br>
+    <input type="radio" id="radio" name="hear_about" value="radio">
+    <label for="radio">Radio Ad</label><br>
+    <input type="radio" id="internet" name="hear_about" value="internet">
+    <label for="internet">Internet Ad</label><br>
+    <input type="radio" id="other" name="hear_about" value="other">
+    <label for="radio">Other</label>
+    <!--If you want multiple radio buttons to be allowed to selected at once, do NOT include the name attribute-->
+    <!--the NAME attribute in a radio button indicates it is part of a group and only allows one button to be selected at once. -->
+    <br>
+    <label for="browser_type"><h4>What browser are you using?</h4></label>
+    <select name="browser_type" id="browser_type">
+        <option value="chrome">Chrome</option>
+        <option value="safari">Safari</option>
+        <option value="firefox">Firefox</option>
+        <option value="ie">Internet Explorer</option>
+    </select>
+    </span>
+
+</form>
+</body>
+</html>
