@@ -1,4 +1,33 @@
 .fancy-header {
     color: purple;
+    text-align: center;
+}
+
+h2 {
+    color: deeppink;
     text-decoration: underline;
+}
+
+
+body {
+    background-image: url("../images/sunrise.jpg");
+    background-size: contain;
+    font-family: "American Typewriter";
+}
+
+ul {
+    list-style-type: square;
+}
+
+ol {
+    list-style-type: upper-roman;
+}
+
+table {
+    border: .25em solid coral;
+    font-size: 1em;
+}
+
+th {
+    font-size: 2em;
 }
