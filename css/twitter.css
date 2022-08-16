@@ -134,7 +134,8 @@ a {
 }
 
 .profile-form {
-    light-height: 5;
+    line-height: 5;
+    float: right
 }
 
 .profile-entry {
