@@ -39,7 +39,7 @@ a {
 
 .nav {
     list-style-type: none;
-    padding: 0;
+    padding: 1em;
     margin: 0;
 }
 
@@ -55,7 +55,7 @@ a {
 
 .nav-item {
     display: inline;
-    padding: 1.5em;
+    margin: 1.5em;
 }
 
 .profile {
