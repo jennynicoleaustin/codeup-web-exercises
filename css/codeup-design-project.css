@@ -1,7 +1,11 @@
 .dot {
-    height: 25px;
-    width: 25px;
+    height: 105px;
+    width: 105px;
     background-color: #E6563B;
     border-radius: 50%;
-    display: inline-block;
+    border: 8px solid white;
+    text-align: center;
+}
+body {
+    background-color: #e6e6e6;
 }
