@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,12 +7,20 @@
 <body>
 <h1>Konami Code</h1>
 
-<script src="../js/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
     "use strict";
+    var code = "38 38 40 40 37 39 37 39 66 65 13";
+    var attempt = "";
 
     $(document).keyup(function(event){
+        attempt += ` ${event.keyCode}`;
         console.log(event.keyCode);
+        console.log(attempt);
+        if(attempt.trim() === code){
+            $("body").css("background-color", "gray").css("color", "pink");
+            alert("You gained 30 lives!");
+        }
     });
 </script>
 </body>
