@@ -1,5 +1,5 @@
 "use strict";
-$(function() {
+$(function () {
 
 })
 // Introduction Exercise
@@ -45,9 +45,38 @@ $(function() {
 //Mouse Events
 
 //#2
-// let clickColor = function (e) {
-//     $('h1').css('background-color', 'pink');
-// };
-$('h1').click(function() {
+
+$('h1').click(function () {
     $('h1').css('background-color', 'pink');
 });
+
+//#3
+$('p').dblclick(function () {
+    $('p').css('font-size', '18px')
+});
+
+//#4
+// let hoverOut = function() {
+//     $('li').css('text-color', 'black')
+// };
+//
+// let hoverIn = function() {
+//     $('li').css('text-color', 'red')
+// };
+//
+// $('li').hover(hoverIn(),hoverOut());
+$('#goodlist').hover(
+    function() {
+        $(this).css('color', 'red');
+    },
+    function () {
+        $(this).css('color', 'black');
+    }
+);
+
+
+
+
+
+
+
