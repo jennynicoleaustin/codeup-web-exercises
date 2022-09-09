@@ -1,5 +1,8 @@
 "use strict";
-//Introduction Exercise
+$(function() {
+
+})
+// Introduction Exercise
 // $(function() {
 //     alert( 'The DOM has finished loading!');
 // });
@@ -18,8 +21,9 @@
 //#5
 // let contentsFive = $('#goodlist').html();
 // alert(contentsFive);
-//ow does it change the selection, it does not work, each id should be unique
+//How does it change the selection, it does not work, each id should be unique
 
 //Class Selectors
 
-//#
+//#3
+$('.codeup').css('border', '1px solid red');
