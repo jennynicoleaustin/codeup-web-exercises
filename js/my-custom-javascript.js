@@ -32,3 +32,10 @@ $(function() {
 
 //#2
 $('li').css('font-size', '20px');
+
+//#3
+$('h1, p, li').css('background-color', 'yellow');
+
+//#4
+let contentsH = $('h1').html();
+    alert(contentsH);
