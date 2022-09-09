@@ -6,6 +6,7 @@
 
 //Selectors Exercise
 
+//id Selectors
 //#3
 // let contents = $('#lorem').html();
 // alert(contents);
@@ -20,3 +21,5 @@
 //ow does it change the selection, it does not work, each id should be unique
 
 //Class Selectors
+
+//#
