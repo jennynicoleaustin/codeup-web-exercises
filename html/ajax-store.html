@@ -2,39 +2,76 @@
 <html>
 <head>
     <title>Online Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 </head>
 <body>
 
-<h1>My Tool Store</h1>
+<div class="h1 text-center mb-4">My Tool Store</div>
 
-<table id="products">
+<table id="products" class="table-secondary w-75 m-auto">
     <thead>
-        <tr>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Categories</th>
-        </tr>
+    <tr class="table-secondary">
+        <th scope="col">Tool</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Categories</th>
+    </tr>
     </thead>
     <tbody id="insertProducts"></tbody>
 </table>
+<div class="d-flex justify-content-center mt-4">
+<button type="button" id="update" class="btn btn-secondary">Update Order</button>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
-($(document).ready(function() {
-    "use strict";
-    // TODO: Create an AJAX GET request for the file under data/inventory.json
+    ($(document).ready(function () {
+        "use strict";
+        // TODO: Create an AJAX GET request for the file under data/inventory.json
 
-    const toolData = "../data/inventory.json"
+        // assign the source of json data to a const
+        const toolsData = "../data/inventory.json"
 
-    // TODO: Take the data from inventory.json and append it to the products table
-    //       HINT: Your data should come back as a JSON object; use console.log() to inspect
-    //             its contents and fields
-    //       HINT: You will want to target #insertProducts for your new HTML elements
-})());
+        // make clicking the button run the update function
+        $('#update').on('click', function () {
+            updateOrder()
+        });
+
+        // Get the data via AJAX request
+    function updateOrder () {
+        $.get(toolsData).done(function (tools) {
+            let toolsHtml = createHtml(tools); //assign the data from the createHtml function to a variable
+            $('#insertProducts').html(toolsHtml); //change the DOM to reflect new html/data.
+        }).fail(function(jqXhr, status, error) {
+            console.log(jqXhr);
+            console.log(status);
+            console.log(error);
+        });
+    }
+
+        // TODO: Take the data from inventory.json and append it to the products table
+        //       HINT: Your data should come back as a JSON object; use console.log() to inspect
+        //             its contents and fields
+        //       HINT: You will want to target #insertProducts for your new HTML elements
+
+        updateOrder(); // run function that has ajax request
+
+        function createHtml(tools) {
+            let html = ``
+            tools.forEach(tool => {
+                html += `<tr class="table-secondary">
+                <th scope="row">${tool.title}</th>
+                <td>${tool.quantity}</td>
+                <td>${tool.price}</td>
+                <td>${tool.categories}</td>
+                </tr>`
+            })
+            return html
+            }
+    })());
 </script>
 
 </body>
