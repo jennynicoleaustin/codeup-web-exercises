@@ -10,7 +10,7 @@
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
-<div id="posts">
+<div id="posts" class="card">
 
 </div>
 
@@ -21,11 +21,11 @@
         "use strict";
 
 // Get the data from the json file and store it in a variable
-        const blogPosts = ``;
+        const blogPosts = "../data/blog.json";
 
 // Request the info via Ajax and store that info in a variable
-        function updateBlog () {
-            $.get(blogPosts).done(function () {
+        function updateBlog() {
+            $.get(blogPosts).done(function (posts) {
                 let blogHtml = createHtml(posts);
                 $('#posts').html(blogHtml);
             }).fail(function (jqXhr, status, error) {
@@ -35,7 +35,22 @@
             });
         }
 
+        updateBlog();
+
+//title, content, categories, date
+
+        function createHtml(posts) {
+            let html = ``
+            posts.forEach(post => {
+                html += `<div class="card-header">${post.title}</div>
+                <div class="card-body">
+                <p class="card-text">${post.content}</p>
+                <footer class="blockquote-footer">${post.date}</footer>
+                <div class="card-footer text-muted">${post.categories}</div>`
+            })
+            return html
+        }
     })());
-    </script>
+</script>
 </body>
 </html>
