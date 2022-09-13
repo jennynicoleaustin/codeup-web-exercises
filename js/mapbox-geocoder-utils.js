@@ -33,65 +33,7 @@ let restaurants = [
     }
 ]
 
-//nav & search controls
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    })
-);
-map.addControl(new mapboxgl.NavigationControl())
 
-//loop
-restaurants.forEach((restaurant) => {
-    const {name, address, cuisine, description} = restaurant
-    let popup = new mapboxgl.Popup()
-        .setHTML(`
-        <div class="card" style="width: 100%">
-          <div class="card-body">
-            <h5 class="card-title">${name}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${address}</h6>
-            <p class="card-text">${description}</p>
-            <p class="card-text">${cuisine}</p>
-          </div>
-        </div>
-        `)
-
-    let marker = new mapboxgl.Marker()
-        .setLngLat(restaurant.coordinates)
-        .addTo(map)
-        .setPopup(popup)
-    popup.addTo(map)
-})
-
-function renderLngLat(coordinates) {
-    $('#lnglat').html(`
-    <h5 class="m-3">Longitude: ${coordinates.lng.toFixed(3)}</h5>
-    <br>
-    <h5 class="m-3">Latitude: ${coordinates.lat.toFixed(3)}</h5>
-    `)
-}
-
-$('#search-btn').click(() => {
-    const search = $('#search-input').val()
-    console.log(search)
-    geocode(search, mapboxgl.accessToken).then((location) => {
-        map.setCenter(location)
-        map.setZoom(9)
-        let marker = new mapboxgl.Marker({
-            draggable: true
-        })
-            .setLngLat([location[0],location[1]])
-            .addTo(map)
-        let coordinates = marker.getLngLat()
-        renderLngLat(coordinates)
-
-        marker.on('dragend',() => {
-            coordinates = marker.getLngLat();
-            renderLngLat(coordinates)
-        })
-    })
-})
 //Geocode from curriculum
 function geocode(search, token) {
     var baseUrl = 'https://api.mapbox.com';
