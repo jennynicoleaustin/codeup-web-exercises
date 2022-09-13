@@ -1,18 +1,98 @@
 "use strict";
 
-/***
- * geocode is a method to search for coordinates based on a physical address and return
- * @param {string} search is the address to search for the geocoded coordinates
- * @param {string} token is your API token for MapBox
- * @returns {Promise} a promise containing the latitude and longitude as a two element array
- *
- * EXAMPLE:
- *
- *  geocode("San Antonio", API_TOKEN_HERE).then(function(results) {
- *      // do something with results
- *  })
- *
- */
+
+
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-77.88, 34.21], // starting position [lng, lat]
+    zoom: 9, // starting zoom
+});
+
+let restaurants = [
+    {
+        name: `Circa 1922`,
+        address: `8 N Front Street, Wilmington, North Carolina 28401, United States`,
+        coordinates: [-77.948570,34.235695],
+        cuisine: `Tapas`,
+    },
+    {
+        name:`Catch`,
+        address: `6623 Market Street, Wilmington, North Carolina 28405, United States`,
+        coordinates: [-77.838730, 34.257920],
+        cuisine:`Fried Chicken / Nashville Hot Chicken`,
+    },
+    {
+        name: `Fork'n Cork`,
+        address: `122 Market Street, Wilmington, North Carolina 28401, United States`,
+        coordinates: [-77.947920, 34.23195],
+        cuisine: `Pizza`,
+        description: `Located near the Bishop Arts District of Oak Cliff in Dallas, TX - Offering delicious neo artisan pizza`,
+
+    }
+]
+
+//nav & search controls
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    })
+);
+map.addControl(new mapboxgl.NavigationControl())
+
+//loop
+restaurants.forEach((restaurant) => {
+    const {name, address, cuisine, description} = restaurant
+    let popup = new mapboxgl.Popup()
+        .setHTML(`
+        <div class="card" style="width: 100%">
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">${address}</h6>
+            <p class="card-text">${description}</p>
+            <p class="card-text">${cuisine}</p>
+          </div>
+        </div>
+        `)
+
+    let marker = new mapboxgl.Marker()
+        .setLngLat(restaurant.coordinates)
+        .addTo(map)
+        .setPopup(popup)
+    popup.addTo(map)
+})
+
+function renderLngLat(coordinates) {
+    $('#lnglat').html(`
+    <h5 class="m-3">Longitude: ${coordinates.lng.toFixed(3)}</h5>
+    <br>
+    <h5 class="m-3">Latitude: ${coordinates.lat.toFixed(3)}</h5>
+    `)
+}
+
+$('#search-btn').click(() => {
+    const search = $('#search-input').val()
+    console.log(search)
+    geocode(search, mapboxgl.accessToken).then((location) => {
+        map.setCenter(location)
+        map.setZoom(9)
+        let marker = new mapboxgl.Marker({
+            draggable: true
+        })
+            .setLngLat([location[0],location[1]])
+            .addTo(map)
+        let coordinates = marker.getLngLat()
+        renderLngLat(coordinates)
+
+        marker.on('dragend',() => {
+            coordinates = marker.getLngLat();
+            renderLngLat(coordinates)
+        })
+    })
+})
+//Geocode from curriculum
 function geocode(search, token) {
     var baseUrl = 'https://api.mapbox.com';
     var endPoint = '/geocoding/v5/mapbox.places/';
@@ -24,21 +104,7 @@ function geocode(search, token) {
             return data.features[0].center;
         });
 }
-
-
-/***
- * reverseGeocode is a method to search for a physical address based on inputted coordinates
- * @param {object} coordinates is an object with properties "lat" and "lng" for latitude and longitude
- * @param {string} token is your API token for MapBox
- * @returns {Promise} a promise containing the string of the closest matching location to the coordinates provided
- *
- * EXAMPLE:
- *
- *  reverseGeocode({lat: 32.77, lng: -96.79}, API_TOKEN_HERE).then(function(results) {
- *      // do something with results
- *  })
- *
- */
+//reverse geocode from curriculum
 function reverseGeocode(coordinates, token) {
     var baseUrl = 'https://api.mapbox.com';
     var endPoint = '/geocoding/v5/mapbox.places/';

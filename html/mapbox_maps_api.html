@@ -5,13 +5,35 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My favorite Restaurant</title>
+    <title>My Favorite Places</title>
+<!--Mapbox CDN-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
+<!--Bootstrap CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
 </head>
 <body>
-<div id="map">
+<!--Map-->
+<div class="container-fluid d-flex justify-content-center">
+    <div class="input-group m-3 w-50">
+        <input type="text" id="search-input" class="form-control" placeholder="Search locations..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="search-btn">Search</button>
+    </div>
+</div>
+
+<div class="container">
+    <div id='map' style='width: 100%; height: 700px;'></div>
+</div>
+
+<div id="lnglat" class="container d-flex justify-content-center">
 
 </div>
+
+
+<!--keys JS with mapbox token-->
 <script src="../js/keys.js"></script>
+<!--Mapbox JS file-->
+<script src="../js/mapbox-geocoder-utils.js"></script>
 </body>
 </html>
