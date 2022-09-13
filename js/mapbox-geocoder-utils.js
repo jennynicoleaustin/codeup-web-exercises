@@ -13,7 +13,8 @@ const map = new mapboxgl.Map({
 });
 //Working through lesson and first 7 problems
 // //Create the popup
-// let circaPop = new mapboxgl.Popup({offset: 25}).setHTML('<p>Delicious Tapas and new menus daily</p>');
+// let circaPop = new mapboxgl.Popup({offset: 25})
+// .setHTML('<p>Delicious Tapas and new menus daily</p>');
 //
 //
 // //add a marker
@@ -29,29 +30,52 @@ const map = new mapboxgl.Map({
 //     map.setZoom(20);
 // });
 
-// let restaurants = [
-//     {
-//         name: `Circa 1922`,
-//         address: `8 N Front Street, Wilmington, North Carolina 28401, United States`,
-//         coordinates: [-77.948570,34.235695],
-//         cuisine: `Tapas`,
-//     },
-//     {
-//         name:`Catch`,
-//         address: `6623 Market Street, Wilmington, North Carolina 28405, United States`,
-//         coordinates: [-77.838730, 34.257920],
-//         cuisine:`Fried Chicken / Nashville Hot Chicken`,
-//     },
-//     {
-//         name: `Fork'n Cork`,
-//         address: `122 Market Street, Wilmington, North Carolina 28401, United States`,
-//         coordinates: [-77.947920, 34.23195],
-//         cuisine: `Pizza`,
-//         description: `Located near the Bishop Arts District of Oak Cliff in Dallas, TX - Offering delicious neo artisan pizza`,
-//
-//     }
-// ]
+let restaurants = [
+    {
+        name: `Circa 1922`,
+        address: `8 N Front Street, Wilmington, North Carolina 28401, United States`,
+        coordinates: [-77.948570,34.235695],
+        cuisine: `Tapas`,
+        description: `Locally sourced and new menus crafted daily`
+    },
+    {
+        name:`Catch`,
+        address: `6623 Market Street, Wilmington, North Carolina 28405, United States`,
+        coordinates: [-77.838730, 34.257920],
+        cuisine:`Seafood`,
+        description: `Modern seafood, locally sourced, award winning`
+    },
+    {
+        name: `Fork'n Cork`,
+        address: `122 Market Street, Wilmington, North Carolina 28401, United States`,
+        coordinates: [-77.947920, 34.23195],
+        cuisine: `New American`,
+        description: `Featured on Diners, Drive-Ins & Dives. Best brunch in Wilmington`,
 
+    }
+]
+
+//Lets make a for each loop that will pull all that info from the rest variable and populate it in a popup
+
+restaurants.forEach((restaurant) => {
+    const {name, cuisine, address, description} = restaurant
+    let popup = new mapboxgl.Popup({offset: 25})
+        .setHTML(`
+        <div class="card" style="width: 100%">
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">${address}</h6>
+            <p class="card-text">${description}</p>
+            <p class="card-text">${cuisine}</p>
+          </div>
+        </div>
+        `)
+    let marker = new mapboxgl.Marker()
+        .setLngLat(restaurant.coordinates)
+        .addTo(map)
+        .setPopup(popup)
+        .addTo(map)
+});
 
 //Geocode from curriculum
 function geocode(search, token) {
