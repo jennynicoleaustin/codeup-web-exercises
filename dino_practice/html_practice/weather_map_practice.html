@@ -8,17 +8,25 @@
     <title>Weather Map Practice</title>
 </head>
 <body>
-<script>
-    "use strict";
-
-    //query for san antonio weather data by making a get request with q: "City, US"
-    $.get("http://api.openweathermap.org/data/2.5/weather", {
-        APPID: OPEN_WEATHER_APPID,
-        q:     "San Antonio, US"
-    });
-</script>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="../../js/keys.js"></script>
+<script>
+<!--    this is required to tell the site to wait until JQuery is loaded to attempt anything. -->
+    $(document).ready(function () {
+    "use strict";
+
+    // query for san antonio weather data by making a get request with q: "City, US"
+    $.get("http://api.openweathermap.org/data/2.5/weather", {
+        APPID: OPEN_WEATHER_APPID,
+        q:     "San Antonio, US", //parameter q = the location
+        units: "imperial" //changes the units from the standard kelvin to degrees F
+    }).done(function(data) {
+        console.log(data);
+    });
+    });
+
+</script>
+
 </body>
 </html>
