@@ -55,7 +55,7 @@ let restaurants = [
     }
 ]
 
-//Lets make a for each loop that will pull all that info from the rest variable and populate it in a popup
+//Let's make a for each loop that will pull all that info from the rest variable and populate it in a popup
 
 restaurants.forEach((restaurant) => {
     const {name, cuisine, address, description} = restaurant
