@@ -40,5 +40,57 @@ if (age < 5) {
 } else if (age >= 65) {
     console.log('ticket price is $5')
 }
-// you dont need to specific between ages 11-64, because the code for the else if for someone that is 3 would run first and the conditional would stop checking down the line.
+// you don't need to specific between ages 11-64, because the code for the else if for someone that is 3 would run first and the conditional would stop checking down the line.
+
+// Else statements
+// When you want code to execute for one condition, but a different code to execute for all other conditions, use else statements.
+// else does not have a condition to be specified it is a catch all.
+
+// else syntax
+// if (condition) {
+//      code you want executed
+//      } else {
+//      code you want executed if condition is false
+//      };
+
+// else example
+
+let dayOfWeek = 'sunday'
+
+if (dayOfWeek === 'monday') {
+    console.log('monday is my favorite day of the week')
+} else if (dayOfWeek === 'friday') {
+    console.log('friday is my second favorite day of the week')
+} else { //else stmts work either right after the if statement or after else if stmts
+    console.log('all the other days are fine')
+}
+
+// a caveat... the else statement does not check to see if it is a valid day of the week. the else statement will run when any condition other than those defined in if and else ifs are true.
+
+// Nesting conditionals!
+// You can nest conditionals inside of other conditionals
+
+// Nesting example
+
+const password = prompt('please enter a new password');
+
+// password requirements = 6+ characters & no spaces
+// for above we should... check length; if >= 6,
+// then pw is ok - index of. we want no space, so indexOf returns -1 then YAY
+
+// Not a nested conditional but does work if you want two conditions to be true to execute a single code statement
+// if (password.length >= 6 && (password.indexOf(' ') === -1)) {
+//     console.log('Great password!')
+// } else {
+//     console.log('password does not meet minimum requirements')
+// }
+
+if (password.length >= 6) {
+    if (password.indexOf(' ') === -1) {
+        console.log('password contains no spaces')
+    }
+    console.log('password is great')
+} else {
+    console.log('password does not meet minimum requirements')
+}
 
