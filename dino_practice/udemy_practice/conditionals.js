@@ -78,12 +78,7 @@ const password = prompt('please enter a new password');
 // for above we should... check length; if >= 6,
 // then pw is ok - index of. we want no space, so indexOf returns -1 then YAY
 
-// Not a nested conditional but does work if you want two conditions to be true to execute a single code statement
-// if (password.length >= 6 && (password.indexOf(' ') === -1)) {
-//     console.log('Great password!')
-// } else {
-//     console.log('password does not meet minimum requirements')
-// }
+
 
 if (password.length >= 6) {
     if (password.indexOf(' ') === -1) {
@@ -94,3 +89,63 @@ if (password.length >= 6) {
     console.log('password does not meet minimum requirements')
 }
 
+//Truthiness and Falsiness
+//all values in JS are inherently true or false - aka they have an inherent true or false value assigned to them.
+// All values are TRUE except the following; '' (empty string), null, undefined, 0, NaN, false
+
+//Example to test truthy or Falsy
+
+const userInput = prompt('enter something');
+
+if (userInput) {
+    console.log('TRUTHY!')
+} else {
+    console.log('FALSY!')
+}
+
+//userInput will be converted (forced) into a boolean value
+//thus the code after if will run if the value (or condition) is inherently true. else = inherently false values
+
+//LOGICAL OPERATORS
+
+// && AND operator - both statements must be true for the overall statement to evalate to true. If the first statement is false than js does not check statement 2, if first statement is true and second statement is false the overall statement is FALSE
+
+if (password.length >= 6 && (password.indexOf(' ') === -1)) {
+    console.log('Great password!')
+} else {
+    console.log('password does not meet minimum requirements')
+}
+
+// && Can be used to compare numbers and combined with ||
+
+// || OR Operator
+// only cares if one of the statements is true.
+
+// && runs before ||
+// If you want || to run before && remember pmdos and add parenthesis around the || statement
+
+// ! BANG aka NOT
+//example
+// let firstName = prompt('enter your first name');
+//     if(!firstName) {
+//         firstName = prompt('Try again!');
+//     }
+//
+// let ageNum = 8;
+//     if (!(age >= 0 && age < 5 || age >= 65)) { // if the value of age is not greater than or equal to 0 OR age is not greater than or equal to 65;
+//         console.log("you're right in the middle!") // then log that shit
+//     }
+
+// SWITCH STMT
+// Control-flow statement that can replace multiple if statements
+
+//Switch Stmt SYNTAX
+// switch (variable name) {
+//      case value:
+//            code you want to execute;
+//            break; // if you do not include the break stmt you will see all the code after the first true value executed
+//      case next value:
+//            code you want to execute;
+//            break; // and so on with the cases you want to check
+//      default:
+//            code you want to execute if none of the above situations are true
