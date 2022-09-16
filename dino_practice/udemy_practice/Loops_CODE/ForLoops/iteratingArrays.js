@@ -2,6 +2,14 @@
 // ITERATING OVER ARRAYS!
 // ===================================
 
+// If you want to do something to each item within an array you can use a for loop
+// in these cases the number (i) refers to an index within the array....
+
+for (let i = 0; i < animals.length; i++) {
+    console.log(i, animals[i]);
+}
+
+
 const animals = [
     "Aardvark",
     "Aardwolf",
@@ -318,9 +326,9 @@ const animals = [
     "Zorilla"
 ]
 
-for (let i = 0; i < animals.length; i++) {
-    console.log(i, animals[i])
-}
+// for (let i = 0; i < animals.length; i++) {
+//     console.log(i, animals[i])
+// }
 
 // for (let i = animals.length - 1; i >= 0; i--) {
 //     console.log(animals[i])
