@@ -27,6 +27,9 @@ const users = [
     email: 'justin@codeup.com',
     languages: ['html', 'css', 'javascript', 'php']
   }
+  {
+    name: 'jenny'
+  }
 ];
 
 // TODO: fill in your name and email and add some programming languages you know
