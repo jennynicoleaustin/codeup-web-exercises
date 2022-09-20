@@ -1,5 +1,12 @@
-const prices = [9.99, 1.50, 19.99, 49.99, 30.50];
+//:::: REDUCE :::::
+// executes a reducer function on each element of the array resulting in a single value
 
+//reducer function accepts 2 parameter
+//  1 = accumulator (what you're reducing the array down to, holds the sum) -- this value is used each iteration to add to
+// 2 = current value
+
+const prices = [9.99, 1.50, 19.99, 49.99, 30.50];
+//Find the total without the use of reduce
 // let total = 0;
 // for (let price of prices) {
 //     total += price
@@ -10,10 +17,12 @@ const prices = [9.99, 1.50, 19.99, 49.99, 30.50];
 //     return total + price
 // })
 
-const total = prices.reduce((total, price) => total + price)
+// Very usful for sum, product, etc but can be used for many more ways.
+const total = prices.reduce((total, price) => total + price)  // total = the accumulator, price represents each item in the array
 
-const minPrice = prices.reduce((min, price) => {
-    if (price < min) {
+// Find the min (or max) value in an array
+const minPrice = prices.reduce((min, price) => { //for the accumulator (min) we are not accumulating but rather holds the smallest value as it cycles through the array.
+    if (price < min) { // for this, we return the price if the price is not less than the new min, and we return the new min if it is less (because the min becomes that new smaller price) we return price if not so that we can continue to cycle through
         return price;
     }
     return min;
