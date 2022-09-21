@@ -49,7 +49,12 @@ const languages = [];
 //   email: email,
 //   languages: languages
 // });
-// users.push({})
+users.push({
+  name,
+  email,
+  languages
+});
+
 
 // TODO: replace `var` with `let` in the following variable declarations
 let emails = [];
