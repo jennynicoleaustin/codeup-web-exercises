@@ -1,0 +1,8 @@
+// :::: AJAX NOTES :::::
+
+// making requests to load some data or information behind the scenes without changing the displayed web page
+
+// Dev Tools --- Network : includes all the requests that were made.
+    // Network, clear, then you can see the requests that were made.
+
+AJAX -- making requests without refreshing the page.

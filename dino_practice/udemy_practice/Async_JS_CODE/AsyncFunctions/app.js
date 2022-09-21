@@ -1,5 +1,13 @@
+// ASYNC FUNCTIONS ::::::
+// -- new way to do JS promises
+
+// the async keyword declares a function as an asynchronous function
+    // async will always AUTOMATICALLY return a promise
+    // if the function throws an exception the promise is rejected 
+
 // async function hello() {
 // }
+
 
 
 const sing = async () => {
@@ -36,7 +44,9 @@ login('todd', 'corgifeetarecute')
     })
 
 
+// AWAIT KEYWORD ::::::::
 
+//
 
 
 
@@ -57,9 +67,9 @@ const delayedColorChange = (color, delay) => {
 //     .then(() => delayedColorChange('indigo', 1000))
 //     .then(() => delayedColorChange('violet', 1000))
 
-
+//await says "wait until the promise is resolved"
 async function rainbow() {
-    await delayedColorChange('red', 1000)
+    await delayedColorChange('red', 1000) // adding the await keyword says "wait for this code to finish before running the next line.
     await delayedColorChange('orange', 1000)
     await delayedColorChange('yellow', 1000)
     await delayedColorChange('green', 1000)
@@ -70,7 +80,7 @@ async function rainbow() {
 }
 
 // rainbow().then(() => console.log("END OF RAINBOW!"))
-
+//Rewrite the above code to simplify the code more.
 
 async function printRainbow() {
     await rainbow();
@@ -79,6 +89,8 @@ async function printRainbow() {
 
 printRainbow();
 
+
+//
 const fakeRequest = (url) => {
     return new Promise((resolve, reject) => {
         const delay = Math.floor(Math.random() * (4500)) + 500;
@@ -94,14 +106,20 @@ const fakeRequest = (url) => {
 
 
 async function makeTwoRequests() {
-    try {
-        let data1 = await fakeRequest('/page1');
+    try { // This is what we want to attempt
+        let data1 = await fakeRequest('/page1'); // you can await the value of the promise and save it in a variable for you to use later.
         console.log(data1);
         let data2 = await fakeRequest('/page2');
         console.log(data2);
-    } catch (e) {
+    } catch (e) { // this is where we catch the error.
         console.log("CAUGHT AN ERROR!")
-        console.log("error is:", e)
+        console.log("error is:", e) // When we have a parameter for our error we can collect the data to see the error
     }
 
 }
+
+
+//What happens when a promise we are awaiting is rejected
+//-- when a promise is rejected then the code below is not executed.
+
+// we use try and catch to
