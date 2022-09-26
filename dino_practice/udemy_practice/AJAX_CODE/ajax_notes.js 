@@ -6,3 +6,45 @@
     // Network, clear, then you can see the requests that were made.
 
 AJAX -- making requests without refreshing the page.
+    // Looking for just the data not the html/css/js ONLY DATA
+
+//::::: Intro to APIS ::::::
+ --- Requests will give back data with no styles etc.
+
+ //:::: POSTMAN TOOL :::::
+
+ // used to test API request
+
+//::: Hopscotch --- free no sign up version of postman
+//::: https://hoppscotch.io/
+
+// HTTP STATUS CODES :::::::
+
+// 2-- = OK requests
+
+// 3-- = REdirect code
+
+// 4-- = indicate client side did wrong.
+
+// 5-- = Server side error
+
+// :::: Understanding Query Strings ::::
+
+// - found at the end of the url
+    // ?whatever-crap-you-want --
+    // ?q=what do I want to search for
+
+    // key value pairs that we want to search for!
+
+
+// ::::: HTTP HEADERS ::::::
+
+// Some APIS require a header included in the request
+
+// MAKING FETCH REQUESTS :::::::
+
+// fetch function
+
+// call function fetch and pass in the URL
+// The function will return a promise.
+// then you can add in the .then and .catch

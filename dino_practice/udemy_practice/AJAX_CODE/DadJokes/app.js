@@ -1,13 +1,14 @@
 const jokes = document.querySelector("#jokes");
 const button = document.querySelector("button");
 
+//Fetch a new joke
 const addNewJoke = async () => {
   const jokeText = await getDadJoke();
-  const newLI = document.createElement("LI");
+  const newLI = document.createElement("LI"); // create new elemennt of li with the new joke
   newLI.append(jokeText);
   jokes.append(newLI);
 };
-
+// Get joke from server
 const getDadJoke = async () => {
   try {
     const config = { headers: { Accept: "application/json" } };

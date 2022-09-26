@@ -1,7 +1,7 @@
 fetch("https://swapi.dev/api/people/1/")
   .then((res) => {
     console.log("RESOLVED!", res);
-    return res.json();
+    return res.json(); // this returns a promise
   })
   .then((data) => {
     console.log(data);
@@ -30,8 +30,9 @@ fetch("https://swapi.dev/api/people/1/")
 //     console.log("ERROR!", e);
 //   });
 
+// ::::: USE THIS SYNTAX FOR THE WIN!!!!
 const loadStarWarsPeople = async () => {
-  try {
+  try { // wrap everything in a try catch so it doesn;t break everything
     const res = await fetch("https://swapi.dev/api/people/1/");
     const data = await res.json();
     console.log(data);
