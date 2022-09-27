@@ -9,16 +9,9 @@ var map = new mapboxgl.Map({
     center: [-96.8292, 32.9618]
 });
 
-// --- Left off on... figure out the search box in an area other than the map itself and get it to move the draggable marker
-// Navigation on map, zoom
+// ZOOM CONTROLS ON MAP
 map.addControl(new mapboxgl.NavigationControl());
-// geolocator function on map
-const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
-});
 
-document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //DRAGGABLE MARKER
 const marker = new mapboxgl.Marker({
@@ -33,11 +26,9 @@ function onDragEnd() {
     const {lng, lat} = marker.getLngLat();
     weatherData(lng, lat)
     console.log(lng, lat);
-    // instead of this being passed into html, take lat and lon and pass to weatherData function
 }
 // turn marker "on" at the end of the drag
 marker.on('dragend', onDragEnd);
-
 
 
 // GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
