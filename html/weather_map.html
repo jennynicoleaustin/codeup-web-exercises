@@ -18,12 +18,16 @@
 <!--AXIOS CDN -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+<!--MAPBOX geolocator SCRIPT -->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
 <!--NAVBAR WITH SEARCH -->
 <nav class="navbar bg-light">
     <div class="container-fluid">
         <a class="navbar-brand">CAT WEATHER</a>
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <div id="geocoder" class="geocoder"></div>
             <button class="btn btn-outline-secondary" type="submit">Search</button>
         </form>
     </div>

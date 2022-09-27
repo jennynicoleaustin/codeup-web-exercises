@@ -9,9 +9,14 @@ var map = new mapboxgl.Map({
     center: [-96.8292, 32.9618]
 });
 
+// --- Left off on... figure out the search box in an area other than the map itself and get it to move the draggable marker
 // Navigation on map, zoom
-map.addControl(new mapboxgl.NavigationControl());
-
+// map.addControl(new mapboxgl.NavigationControl());
+// // geolocator function on map
+// const geocoder = new MapboxGeocoder({
+//     accessToken: mapboxgl.accessToken,
+//     mapboxgl: mapboxgl
+// });
 
 //DRAGGABLE MARKER
 const marker = new mapboxgl.Marker({
@@ -21,7 +26,7 @@ const marker = new mapboxgl.Marker({
     .setLngLat([-96.8292, 32.9618])
     .addTo(map);
 
-// function to display lat and lon of marker location
+// AT DRAG END LAT & LNG ARE COLLECTED AND PASSED TO THE GET WEATHERDATA REQUEST
 function onDragEnd() {
     const {lng, lat} = marker.getLngLat();
     weatherData(lng, lat)
@@ -33,7 +38,7 @@ marker.on('dragend', onDragEnd);
 
 
 
-// Get 5-day forecast from Open Weather Map
+// GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
 const weatherData = async (lng, lat) => {
     try {
         const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=5&units=imperial&appid=${OPEN_WEATHER_APPID}`
