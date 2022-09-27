@@ -1,6 +1,23 @@
 "use strict";
 
-// MAPBOX API
+// GRAB CONTAINER FOR WEATHER DATA TO DISPLAY
+const dataContainer = document.querySelector('#weatherData')
+
+// GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
+const weatherData = async (lng, lat) => {
+    try {
+        const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=5&units=imperial&appid=${OPEN_WEATHER_APPID}`
+        );
+        let fiveDayForecast = res.data.list; // data is stored in variable
+        console.log(fiveDayForecast)
+        displayForecast(fiveDayForecast);
+        return res.data;
+    } catch (e) {
+        console.log(`error retrieving data`, e)
+    }
+};
+
+// MAPBOX MAP and MARKER
 mapboxgl.accessToken = MAPBOX_TOKEN;
 var map = new mapboxgl.Map({
     container: 'map',
@@ -18,8 +35,17 @@ const marker = new mapboxgl.Marker({
     color: 'pink',
     draggable: true
 })
-    .setLngLat([-96.8292, 32.9618])
-    .addTo(map);
+
+// if I want no marker to be present until the search function is complete I should set the search to run a function that passes .setLngLat and .addTo
+//     .setLngLat([-96.8292, 32.9618]) // sets the initial location of the draggable marker to addison
+//     .addTo(map); // adds that marker to the map
+
+// THIS IS NOT YET WORKING
+// function setMarker (lng, lat) {
+//     marker.setLngLat([lng, lat]);
+//     marker.addTo(map);
+// }
+
 
 // AT DRAG END LAT & LNG ARE COLLECTED AND PASSED TO THE GET WEATHERDATA REQUEST
 function onDragEnd() {
@@ -31,22 +57,6 @@ function onDragEnd() {
 marker.on('dragend', onDragEnd);
 
 
-// GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
-const weatherData = async (lng, lat) => {
-    try {
-        const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=5&units=imperial&appid=${OPEN_WEATHER_APPID}`
-        );
-        let fiveDayForecast = res.data.list;
-        console.log(fiveDayForecast)
-        displayForecast(fiveDayForecast);
-        return res.data;
-    } catch (e) {
-        console.log(`error retrieving data`, e)
-    }
-};
-
-// GRAB CONTAINER FOR WEATHER DATA TO DISPLAY
-const dataContainer = document.querySelector('#weatherData')
 
 // DISPLAY WEATHER DATA
 const displayForecast = (fiveDayForecast) => {
