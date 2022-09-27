@@ -11,12 +11,14 @@ var map = new mapboxgl.Map({
 
 // --- Left off on... figure out the search box in an area other than the map itself and get it to move the draggable marker
 // Navigation on map, zoom
-// map.addControl(new mapboxgl.NavigationControl());
-// // geolocator function on map
-// const geocoder = new MapboxGeocoder({
-//     accessToken: mapboxgl.accessToken,
-//     mapboxgl: mapboxgl
-// });
+map.addControl(new mapboxgl.NavigationControl());
+// geolocator function on map
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+});
+
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //DRAGGABLE MARKER
 const marker = new mapboxgl.Marker({
@@ -56,7 +58,6 @@ const weatherData = async (lng, lat) => {
 const dataContainer = document.querySelector('#weatherData')
 
 // DISPLAY WEATHER DATA
-
 const displayForecast = (fiveDayForecast) => {
     dataContainer.setHTML('')
     for (let forecast of fiveDayForecast) {
