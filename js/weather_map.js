@@ -1,7 +1,35 @@
 "use strict";
 
-let lat = 0
-let lon = 0
+// MAPBOX API
+mapboxgl.accessToken = MAPBOX_TOKEN;
+var map = new mapboxgl.Map({
+    container: 'map',
+    style:'mapbox://styles/jennynicoleaustin/cl8j9jxha000114o0ipxuncwb',
+    zoom: 10,
+    center: [-96.8292, 32.9618]
+});
+
+// Navigation on map, zoom
+// map.addControl(new mapboxgl.NavigationControl());
+
+
+//DRAGGABLE MARKER
+const marker = new mapboxgl.Marker({
+    color: 'pink',
+    draggable: true
+})
+    .setLngLat([-96.8292, 32.9618])
+    .addTo(map);
+
+// function to display lat and lon of marker location
+function onDragEnd() {
+    const lngLat = marker.getLngLat();
+    coordinates.style.display = 'block';
+    coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`; // instead of this being passed into html, take lat and lon and pass to weatherData function
+}
+// turn marker "on" at the end of the drag
+marker.on('dragend', onDragEnd);
+
 
 
 // Get 5-day forecast from Open Weather Map
@@ -61,5 +89,5 @@ const displayForecast = (fiveDayForecast) => {
 // }
 
 // CALL weatherData with lat and lon for Addison, TX
-weatherData(32.9618, 96.8292);
+weatherData(32.9618, -96.8292);
 

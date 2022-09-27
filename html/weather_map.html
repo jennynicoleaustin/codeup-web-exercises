@@ -18,14 +18,30 @@
 <!--AXIOS CDN -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<div id="weatherData" class="container-fluid d-flex">
+<!--NAVBAR WITH SEARCH -->
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">CAT WEATHER</a>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<!--WEATHER FORECAST CONTAINER-->
+<div id="weatherData" class="container-fluid mt-2 d-flex justify-content-center">
 
 </div> <!-- weatherData closing div -->
+<!--END WEATHER FORECAST CONTAINER-->
 
+<!--START MAP CONTAINER-->
+<div class="container d-flex justify-content-center">
+    <div class="justify-self-center mt-2" id='map' style='width: 90%; height: 500px;'></div>
+</div>
+<div id="map"></div>
+<pre id="coordinates" class="coordinates"></pre>
 
-<!--JQuery CDN-->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <!--keys JS with mapbox token-->
 <script src="../js/keys.js"></script>
 <!--weather_map JS file-->
@@ -34,5 +50,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
