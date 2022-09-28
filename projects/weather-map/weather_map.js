@@ -2,6 +2,8 @@
 
 // GRAB CONTAINER FOR WEATHER DATA TO DISPLAY
 const dataContainer = document.querySelector('#weatherData')
+//GRAB SEARCH INPUT
+const search = document.querySelector('#search').value
 
 // GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
 const weatherData = async (lng, lat) => {
@@ -40,12 +42,12 @@ const marker = new mapboxgl.Marker({
 //     .setLngLat([-96.8292, 32.9618]) // sets the initial location of the draggable marker to addison
 //     .addTo(map); // adds that marker to the map
 
-// THIS IS NOT YET WORKING
-// function setMarker (lng, lat) {
-//     marker.setLngLat([lng, lat]);
-//     marker.addTo(map);
-// }
-
+// SET MARKER FUNCTION
+async function setMarker (lng, lat) {
+    marker.setLngLat({lng: lng, lat: lat});
+    marker.addTo(map);
+}
+setMarker(-96.8292,32.9618)
 
 // AT DRAG END LAT & LNG ARE COLLECTED AND PASSED TO THE GET WEATHERDATA REQUEST
 function onDragEnd() {
@@ -86,3 +88,20 @@ const displayForecast = (fiveDayForecast) => {
 // CALL weatherData with lat and lon for Addison, TX
 weatherData(-96.8292, 32.9618);
 
+// GEOCODE FUNCTION FROM MAPBOX EXERCISE
+// function geocode(search, token) {
+//     var baseUrl = 'https://api.mapbox.com';
+//     var endPoint = '/geocoding/v5/mapbox.places/';
+//     return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
+//         .then(function (res) {
+//             return res.json();
+//             // to get all the data from the request, comment out the following three lines...
+//         }).then(function (data) {
+//             return data.features[0].center;
+//         });
+// }
+
+const geocoderSearch = () => {
+
+}
+// https://api.mapbox.com/geocoding/v5/{endpoint}/{search_text}.json
