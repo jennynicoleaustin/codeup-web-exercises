@@ -2,13 +2,13 @@
 
 // GRAB CONTAINER FOR WEATHER DATA TO DISPLAY
 const dataContainer = document.querySelector('#weatherData')
-//GRAB SEARCH INPUT
-const search = document.querySelector('#search').value
+// //GRAB SEARCH INPUT
+// const search = document.querySelector('#search').value
 
 // GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
 const weatherData = async (lng, lat) => {
     try {
-        const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=5&units=imperial&appid=${OPEN_WEATHER_APPID}`
+        const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=20&units=imperial&appid=${OPEN_WEATHER_APPID}`
         );
         let fiveDayForecast = res.data.list; // data is stored in variable
         console.log(fiveDayForecast)
@@ -55,8 +55,10 @@ function onDragEnd() {
     weatherData(lng, lat)
     console.log(lng, lat);
 }
+
 // turn marker "on" at the end of the drag
 marker.on('dragend', onDragEnd);
+
 
 
 
@@ -84,31 +86,29 @@ const displayForecast = (fiveDayForecast) => {
     }
 } // end display forecast function
 
-map.addControl(
+const geocoderHTML = document.querySelector('#geocoder')
+
+const geocoder =
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
-    })
-);
+    });
+
+geocoderHTML.addEventListener('keyup', (e) => {
+    if (e.key === "Enter") {
+        let lat = geocoder.mapMarker._lngLat.lat;
+        let lng = geocoder.mapMarker._lngLat.lng;
+        weatherData(lng, lat);
+    }
+})
+
+geocoderHTML.append(geocoder.onAdd(map))
 
 // CALL weatherData with lat and lon for Addison, TX
 weatherData(-96.8292, 32.9618);
 
-// GEOCODE FUNCTION FROM MAPBOX EXERCISE
-// function geocode(search, token) {
-//     var baseUrl = 'https://api.mapbox.com';
-//     var endPoint = '/geocoding/v5/mapbox.places/';
-//     return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
-//         .then(function (res) {
-//             return res.json();
-//             // to get all the data from the request, comment out the following three lines...
-//         }).then(function (data) {
-//             return data.features[0].center;
-//         });
-// }
+const geocoderMarker = document.querySelectorAll("mapboxgl-marker");
+geocoderMarker.on('dragend', onDragEnd); // this does not work, we want it to turn on the dragend feature for this not yet on the page marker.
 
-// const geocoderSearch = async () => {
-//     await
-//         const searchText =
-//     axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/search_text.json?access_token=MAPBOX_TOKEN`)
-// }
+// Also need to adjust the forecast to display the 5 days in 5 blocks
+

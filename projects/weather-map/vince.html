@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Weather Map</title>
+    <link rel="icon" type="image/x-icon" href="../icons/favicon.ico" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="vinceCSS.css" />
+</head>
+
+<body>
+<!-----------------NAVBAR----------------->
+<nav class="navbar">
+    <div class="container-fluid">
+        <h1 class="navbar-brand mb-0 pt-0 fs-3" id="app-title"><b>Weather Map</b><br /><span id="time-stamp" class="fs-6 ms-1 opacity-50"></span></h1>
+        <h1 id="current-city" class="mb-0 pt-0 fs-5"></h1>
+        <input type="checkbox" id="darkmode-toggle" />
+        <label for="darkmode-toggle"></label>
+    </div>
+</nav>
+<!-----------------FORECAST AND MAP----------------->
+<main>
+    <div id="geocoder" class="geocoder mt-3 mb-3 w-75"></div>
+    <div id="forecast"></div>
+    <div id="map"></div>
+</main>
+<!-----------------SCRIPT TAGS----------------->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+<script src="../js/keys.js"></script>
+<script>
+
+    "use strict";
+
+    function createHTML(data) {
+        let html = ``;
+        // For loop to create 5 cards containing necessary information.
+        for(let i = 0; i < 33; i += 8) {
+            // Getting day of week and storing value in "date" variable.
+            let date = new Date (data.list[i].dt * 1000).toLocaleString('default', {weekday: 'long'});
+            // Display date, weather, description, humidity, wind, pressure on card.
+            html += `
+                        <div class="card shadow" style="width: 19%; height: 300px;">
+                            <h6 class="date card-header d-flex justify-content-center">${date}</h6>
+                            <span class="low-high d-flex justify-content-center mt-2 fs-6">Low / High</span>
+                            <h6 class="temp d-flex justify-content-center fw-bold">${data.list[i].main.temp_min}°F / ${data.list[i].main.temp_max}°F</h6>
+                            <img class="d-flex justify-content-center" id="weather-icon" src="https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png" alt="Weather icon">
+                            <hr style="width: 85%; align-self: center; opacity: .15;" />
+                            <p class="forecast-txt ms-4">Description: <b>${data.list[i].weather[0].description}</b></p>
+                            <p class="forecast-txt ms-4">Humidity: <b>${data.list[i].main.humidity}</b></p>
+                            <hr style="width: 85%; align-self: center; opacity: .15; margin-top: 3px;" />
+                            <p class="forecast-txt ms-4">Wind: <b>${data.list[i].wind.speed}</b></p>
+                            <hr style="width: 85%; align-self: center; opacity: .15; margin-top: 3px;" />
+                            <p class="forecast-txt ms-4">Pressure: <b>${data.list[i].main.pressure}</b></p>
+                        </div>
+                    `
+        }
+        return html;
+    }
+
+    function getRequest(lat, lon) {
+        // Storing GET request in variable.
+        let forecast = $.get("https://api.openweathermap.org/data/2.5/forecast", {
+            APPID: OPEN_WEATHER_APPID,
+            lat: lat,
+            lon: lon,
+            units: "imperial",
+        });
+        // Once we receive 5-day forecast from openweather api, we display forecast on cards.
+        forecast.done(function(data) {
+            console.log(data);
+            let today = new Date();
+            let time = today.getHours() + ":" + today.getMinutes();
+            if (today.getHours() > "12") {
+                time = time + " PM";
+            } else {
+                time = time + " AM";
+            }
+            let forecastCard = createHTML(data);
+            $("#forecast").html(forecastCard);
+            $("#current-city").html(`5 Day Weather - ${data.city.name}, ${data.city.country}`);
+            $("#time-stamp").html(`Forecast updated as of ${time}`);
+        }).fail(function(jqXhr, status, error) {
+            alert(`${status.toUpperCase()}`);
+        });
+    }
+
+    // Initial request to display forecast of Dallas, TX.
+    getRequest(32.7767, -96.7970);
+
+    // Access token for mapbox.
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+
+    // Initializing map.
+    const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11",
+        zoom: 11,
+        center: [-96.7970, 32.7767]
+    });
+
+    // Adds navigation control to map.
+    map.addControl(new mapboxgl.NavigationControl());
+
+    // Initializing marker.
+    let marker = new mapboxgl.Marker({draggable: true});
+
+    // When user clicks on map, marker is placed and map is centered on current marker.
+    map.on("click", function(event) {
+        let coordinates = event.lngLat;
+        marker.setLngLat(coordinates).addTo(map);
+        map.flyTo({
+            center: [coordinates.lng, coordinates.lat],
+            zoom: 15,
+            essential: true
+        });
+        // Updating forecast cards with location selected on map.
+        getRequest(coordinates.lat, coordinates.lng);
+    });
+
+    // Updates forecast and "Current city:" to location where marker was dragged.
+    marker.on("dragend", function() {
+        let dragendCoord = marker.getLngLat();
+        map.flyTo({
+            center: [dragendCoord.lng, dragendCoord.lat],
+            zoom: 15,
+            essential: true
+        });
+        getRequest(dragendCoord.lat, dragendCoord.lng);
+    });
+
+    // Initializing geocoder.
+    const geocoder = new MapboxGeocoder({
+        accessToken: MAPBOX_TOKEN,
+        mapboxgl: mapboxgl
+    });
+
+    // Adding geocoder to document.
+    $("#geocoder").append(geocoder.onAdd(map));
+
+    // Sends get request when user searches for location and hits enter.
+    $("#geocoder").on("keyup", function(e) {
+        if (e.key === "Enter") {
+            let geoLat = geocoder.mapMarker._lngLat.lat;
+            let geoLon = geocoder.mapMarker._lngLat.lng;
+            getRequest(geoLat, geoLon);
+        }
+    });
+
+    // Dark mode selectors
+    let drkModeBtn = document.getElementById("darkmode-toggle");
+    let navbar = document.getElementsByClassName("navbar");
+    let card = document.getElementsByClassName("card");
+    let forecastText = document.getElementsByClassName("forecast-txt");
+    let currentCity = document.getElementById("current-city");
+    let appTitle = document.getElementById("app-title");
+    let cardDate = document.getElementsByClassName("date");
+    let cardTemp = document.getElementsByClassName("temp");
+    let lowHigh = document.getElementsByClassName("low-high");
+    // Toggle dark mode on click.
+    drkModeBtn.addEventListener('click', function(event) {
+        if (document.body.style.backgroundColor === "dimgrey") {
+            document.body.style.backgroundColor = "white";
+            document.body.style.transition = "0.3s";
+            navbar[0].style.backgroundColor = "#0275d8"
+            appTitle.style.color = "white";
+            currentCity.style.color = "white";
+            map.setStyle("mapbox://styles/mapbox/streets-v11");
+
+            // Using for loop to loop through all elements with same class name.
+            for(let i = 0; i < card.length; i++) {
+                card[i].style.backgroundColor = "white";
+            }
+            for(let i = 0; i< forecastText.length; i++) {
+                forecastText[i].style.color = "black";
+            }
+            for(let i = 0; i< cardDate.length; i++) {
+                cardDate[i].style.color = "black";
+            }
+            for(let i = 0; i< cardTemp.length; i++) {
+                cardTemp[i].style.color = "black";
+            }
+            for(let i = 0; i< lowHigh.length; i++) {
+                lowHigh[i].style.color = "#414141";
+                lowHigh[i].style.opacity = "100%";
+            }
+        } else {
+            document.body.style.backgroundColor = "dimgrey";
+            document.body.style.transition = "0.3s";
+            navbar[0].style.backgroundColor = "#343434";
+            appTitle.style.color = "white";
+            currentCity.style.color = "white";
+            map.setStyle("mapbox://styles/mapbox/dark-v10");
+            // Using for loop to loop through all elements with same class name.
+            for(let i = 0; i < card.length; i++) {
+                card[i].style.backgroundColor = "#343434";
+            }
+            for(let i = 0; i< forecastText.length; i++) {
+                forecastText[i].style.color = "white";
+            }
+            for(let i = 0; i< cardDate.length; i++) {
+                cardDate[i].style.color = "white";
+            }
+            for(let i = 0; i< cardTemp.length; i++) {
+                cardTemp[i].style.color = "white";
+            }
+            for(let i = 0; i< lowHigh.length; i++) {
+                lowHigh[i].style.color = "white";
+                lowHigh[i].style.opacity = "60%";
+            }
+        }
+    });
+</script>
+</body>
+
+</html>
