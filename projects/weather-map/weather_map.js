@@ -8,9 +8,9 @@ const dataContainer = document.querySelector('#weatherData')
 // GET REQUEST TO OPEN WEATHER MAP AND RUN THE DISPLAY FORECAST FUNCTION
 const weatherData = async (lng, lat) => {
     try {
-        const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=20&units=imperial&appid=${OPEN_WEATHER_APPID}`
+        const res = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&exclude=current,hourly,minutely,hourly,alerts&units=imperial&appid=${OPEN_WEATHER_APPID}`
         );
-        let fiveDayForecast = res.data.list; // data is stored in variable
+        let fiveDayForecast = res.data.daily; // data is stored in variable
         console.log(fiveDayForecast)
         displayForecast(fiveDayForecast);
         return res.data;
@@ -18,6 +18,8 @@ const weatherData = async (lng, lat) => {
         console.log(`error retrieving data`, e)
     }
 };
+
+
 
 // MAPBOX MAP and MARKER
 mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -65,20 +67,19 @@ marker.on('dragend', onDragEnd);
 // DISPLAY WEATHER DATA
 const displayForecast = (fiveDayForecast) => {
     dataContainer.setHTML('')
-    for (let forecast of fiveDayForecast) {
-        const {dt_txt, main: {temp, temp_max, temp_min}, weather: [{description, icon}]} = forecast
+    for (let i = 0; i <= 4; i++) {
+        const {dt, temp: {min, max}, weather: [{description}]} = fiveDayForecast[i]
         const createCard = document.createElement('div')
         createCard.setAttribute("class", "card daily")
         createCard.setHTML(`
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">${dt_txt}</h5>
+            <h5 class="card-title">${dt}</h5>
             <p class="card-text">${description}</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Current Temp: ${temp}</li>
-            <li class="list-group-item">High Temp: ${temp_max}</li>
-            <li class="list-group-item">Low Temp: ${temp_min}</li>
+            <li class="list-group-item">High Temp: ${max}</li>
+            <li class="list-group-item">Low Temp: ${min}</li>
         </ul>
     </div>
         `)
@@ -108,7 +109,7 @@ geocoderHTML.append(geocoder.onAdd(map))
 weatherData(-96.8292, 32.9618);
 
 const geocoderMarker = document.querySelectorAll("mapboxgl-marker");
-geocoderMarker.on('dragend', onDragEnd); // this does not work, we want it to turn on the dragend feature for this not yet on the page marker.
+// geocoderMarker.on('dragend', onDragEnd); // this does not work, we want it to turn on the dragend feature for this not yet on the page marker.
 
 // Also need to adjust the forecast to display the 5 days in 5 blocks
 
