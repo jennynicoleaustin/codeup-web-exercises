@@ -84,6 +84,12 @@ const displayForecast = (fiveDayForecast) => {
     }
 } // end display forecast function
 
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    })
+);
 
 // CALL weatherData with lat and lon for Addison, TX
 weatherData(-96.8292, 32.9618);
@@ -101,7 +107,8 @@ weatherData(-96.8292, 32.9618);
 //         });
 // }
 
-const geocoderSearch = () => {
-
-}
-// https://api.mapbox.com/geocoding/v5/{endpoint}/{search_text}.json
+// const geocoderSearch = async () => {
+//     await
+//         const searchText =
+//     axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/search_text.json?access_token=MAPBOX_TOKEN`)
+// }
